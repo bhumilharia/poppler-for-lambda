@@ -62,6 +62,9 @@ make install DESTDIR="/home/ec2-user/tmp/install"
 unset FONTCONFIG_PKG
 popd
 
+cp ~/tmp/usr/lib/libfontconfig* ~/tmp/install/var/task/lib/
+cp ~/tmp/usr/lib/libfreetype* ~/tmp/install/var/task/lib/
+
 tar -C ~/tmp/install/var/task \
     --exclude='include' \
     --exclude='share'   \
