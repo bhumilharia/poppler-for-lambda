@@ -1,5 +1,7 @@
 #!/bin/bash
 
+POPPLER=poppler-0.37.0
+
 sudo yum -y groupinstall "Development Tools"
 
 mkdir -p ~/tmp/{usr,etc,var,libs,install,downloads,tar}
@@ -8,7 +10,7 @@ wget -P ~/tmp/downloads \
          http://downloads.sourceforge.net/freetype/freetype-2.6.1.tar.bz2 \
          http://www.freedesktop.org/software/fontconfig/release/fontconfig-2.11.1.tar.bz2 \
          http://xmlsoft.org/sources/libxml2-2.9.2.tar.gz \
-         http://poppler.freedesktop.org/poppler-0.37.0.tar.xz \
+         http://poppler.freedesktop.org/$POPPLER.tar.xz \
 && ls ~/tmp/downloads/*.tar.* | xargs -i tar xf {} -C ~/tmp/libs/
 
 pushd .
@@ -63,6 +65,6 @@ popd
 tar -C ~/tmp/install/var/task \
     --exclude='include' \
     --exclude='share'   \
-    -zcvf ~/tmp/tar/poppler.tar.gz .
+    -zcvf ~/tmp/tar/$POPPLER.tar.gz .
 
-aws s3 cp ~/tmp/tar/poppler.tar.gz s3://"${S3BUCKET}"/poppler.tar.gz
+aws s3 cp ~/tmp/tar/$POPPLER.tar.gz s3://"${S3BUCKET}"/$POPPLER.tar.gz
